@@ -90,7 +90,7 @@ class IsTest extends TestCase
         yield 'object != object (content)' => [$o, (object) ['a' => '1'], 'Failed asserting that two objects are equal.'];
         yield 'object != object (content2)' => [$o, (object) ['a' => '4'], 'Failed asserting that two objects are equal.'];
 
-        yield 'object != object (subclass)' => [new A('1'), new AA('1'), 'Failed asserting that two objects are equal. Expected class "'.A::class.'" but got "'.AA::class.'".'];
+        yield 'object != object (subclass)' => [new A('1'), new AA('1'), 'Failed asserting that two objects are equal. Expected class "' . A::class . '" but got "' . AA::class . '".'];
 
         yield 'object == object (special comparators)' => [new DateTime('2025-01-01'), new DateTimeImmutable('2025-01-01')];
         yield 'object != object (special comparators)' => [new DateTime('2025-01-01'), new DateTimeImmutable('2025-01-02'), 'Failed asserting that two DateTime objects are equal.', '2025-01-01T00:00:00.000000+0000', '2025-01-02T00:00:00.000000+0000'];

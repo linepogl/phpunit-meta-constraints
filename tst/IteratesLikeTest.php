@@ -60,7 +60,8 @@ class IteratesLikeTest extends TestCase
                 Util::expectationFailure('Custom message', $expected, $actual, $expectedAsString, $actualAsString, $error),
                 fn() => $this->assertIteratesLike($expected, $actual, false, 'Custom message'),
             );
-            $this->assertDoesNotThrow(Throwable::class,
+            $this->assertDoesNotThrow(
+                Throwable::class,
                 fn() => $this->assertDoesNotIterateLike($expected, $actual, false),
             );
         }
