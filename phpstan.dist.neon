@@ -1,0 +1,17 @@
+parameters:
+  editorUrl: ''
+  editorUrlTitle: '%%file%%:%%line%%'
+  checkMissingOverrideMethodAttribute: true
+  parallel:
+  	maximumNumberOfProcesses: 4
+  	minimumNumberOfJobsPerProcess: 1
+  level: 10
+  paths:
+    - src
+    - dev
+    - tst
+  excludePaths:
+    - **/*Php85*.php
+  fileExtensions:
+    - php
+  tmpDir: var/cache/.phpstan
