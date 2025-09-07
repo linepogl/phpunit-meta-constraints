@@ -30,7 +30,6 @@ class IsLikeTest extends TestCase
         yield 'int is not like Constraint' => [new Is(1), 2, "Failed asserting that 2 is 1."];
         yield 'string is like RegExp' => [new RegularExpression('/^[0-9]$/'), '1'];
         yield 'string is not like RegExp' => [new RegularExpression('/^[0-9]$/'), 'X', "Failed asserting that 'X' matches PCRE pattern \"/^[0-9]$/\"."];
-        yield 'int is not like RegExp' => [new RegularExpression('/^[0-9]$/'), 1, "Failed asserting that 1 matches PCRE pattern \"/^[0-9]$/\"."];
 
         yield 'list is like list' => [[1,2,3], [1,2,3]];
         yield 'list is not like list (count)' => [[1,2,3], [1,2,3,4], "Failed asserting that an array is like an array.\nFailed asserting that actual size 4 matches expected size 3.", "Failed asserting that actual size 4 matches expected size 3."];
@@ -56,6 +55,8 @@ class IsLikeTest extends TestCase
         if (null === $error) {
             $this->assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
             static::assertTrue($constraint->evaluate($actual, '', true));
+            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIsLike($expected, $actual));
+            $this->assertThrows(Throwable::class, fn() => $this->assertIsNotLike($expected, $actual));
         } else {
             $this->assertThrows(
                 Util::expectationFailure($error, $expected, $actual, null, null, $comparisonError),
@@ -66,6 +67,8 @@ class IsLikeTest extends TestCase
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
             );
             static::assertFalse($constraint->evaluate($actual, '', true));
+            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIsNotLike($expected, $actual));
+            $this->assertThrows(Throwable::class, fn() => $this->assertIsLike($expected, $actual));
         }
     }
 

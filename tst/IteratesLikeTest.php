@@ -44,6 +44,8 @@ class IteratesLikeTest extends TestCase
         if (null === $error) {
             static::assertTrue($constraint->evaluate($actual, '', true));
             $this->assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
+            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIteratesLike($expected, $actual));
+            $this->assertThrows(Throwable::class, fn() => $this->assertDoesNotIterateLike($expected, $actual));
         } else {
             static::assertFalse($constraint->evaluate($actual, '', true));
             $this->assertThrows(
@@ -53,6 +55,13 @@ class IteratesLikeTest extends TestCase
             $this->assertThrows(
                 Util::expectationFailure('Custom message', $expected, $actual, $expectedAsString, $actualAsString, $error),
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
+            );
+            $this->assertThrows(
+                Util::expectationFailure('Custom message', $expected, $actual, $expectedAsString, $actualAsString, $error),
+                fn() => $this->assertIteratesLike($expected, $actual, false, 'Custom message'),
+            );
+            $this->assertDoesNotThrow(Throwable::class,
+                fn() => $this->assertDoesNotIterateLike($expected, $actual, false),
             );
         }
     }

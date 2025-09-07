@@ -103,6 +103,8 @@ class IsTest extends TestCase
         if (null === $error) {
             $this->assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
             static::assertTrue($constraint->evaluate($actual, '', true));
+            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIs($expected, $actual));
+            $this->assertThrows(Throwable::class, fn() => $this->assertIsNot($expected, $actual));
         } else {
             static::assertFalse($constraint->evaluate($actual, '', true));
             $this->assertThrows(
@@ -113,6 +115,8 @@ class IsTest extends TestCase
                 Util::expectationFailure('Custom message', $expected, $actual, $expectedAsString, $actualAsString, $error),
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
             );
+            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIsNot($expected, $actual));
+            $this->assertThrows(Throwable::class, fn() => $this->assertIs($expected, $actual));
         }
     }
 

@@ -39,18 +39,16 @@ trait PhpUnitMetaConstraintsTrait
 
     /**
      * @param iterable<mixed, mixed> $expected
-     * @param iterable<mixed, mixed> $actual
      */
-    public static function assertIteratesLike(iterable $expected, iterable $actual, bool $rewind = false, string $messsage = ''): void
+    public static function assertIteratesLike(iterable $expected, mixed $actual, bool $rewind = false, string $messsage = ''): void
     {
         Assert::assertThat($actual, new IteratesLike($expected, rewind: $rewind), $messsage);
     }
 
     /**
      * @param iterable<mixed, mixed> $expected
-     * @param iterable<mixed, mixed> $actual
      */
-    public static function assertDoesNotIterateLike(iterable $expected, iterable $actual, bool $rewind = false, string $messsage = ''): void
+    public static function assertDoesNotIterateLike(iterable $expected, mixed $actual, bool $rewind = false, string $messsage = ''): void
     {
         Assert::assertThat($actual, new LogicalNot(new IteratesLike($expected, rewind: $rewind)), $messsage);
     }
