@@ -7,7 +7,7 @@ namespace PHPUnitMetaConstraints;
 use Override;
 use PHPUnitMetaConstraints\Util\CustomAssert;
 
-final class IsUndefined extends AbstractConstraint
+class IsUndefined extends AbstractConstraint
 {
     public function __construct(
     ) {
@@ -22,6 +22,6 @@ final class IsUndefined extends AbstractConstraint
     #[Override]
     protected function doEvaluate(mixed $actual, CustomAssert $assert): void
     {
-        $assert->fail('This should never be called directly, use IsLike instead.');
+        $assert->fail('This value shouldn\'t be defined.');
     }
 }

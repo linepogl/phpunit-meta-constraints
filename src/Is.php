@@ -16,7 +16,7 @@ use SebastianBergmann\Comparator\ObjectComparator;
 use SebastianBergmann\Comparator\ScalarComparator;
 use SebastianBergmann\Comparator\TypeComparator;
 
-final class Is extends AbstractConstraint
+class Is extends AbstractConstraint
 {
     public function __construct(
         private readonly mixed $expected,

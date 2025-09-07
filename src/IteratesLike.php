@@ -10,7 +10,7 @@ use PHPUnit\Util\Exporter;
 use PHPUnitMetaConstraints\Util\CustomAssert;
 use PHPUnitMetaConstraints\Util\Util;
 
-final class IteratesLike extends AbstractConstraint
+class IteratesLike extends AbstractConstraint
 {
     /**
      * @param iterable<mixed,mixed> $expected

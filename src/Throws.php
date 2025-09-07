@@ -12,7 +12,7 @@ use Throwable;
 /**
  * @template E of Throwable
  */
-final class Throws extends AbstractConstraint
+class Throws extends AbstractConstraint
 {
     /**
      * @param class-string<E>|Throwable $expected

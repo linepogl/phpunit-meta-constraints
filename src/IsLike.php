@@ -11,7 +11,7 @@ use PHPUnitMetaConstraints\Util\CustomAssert;
 use PHPUnitMetaConstraints\Util\IsLikeErrorDetails;
 use PHPUnitMetaConstraints\Util\Util;
 
-final class IsLike extends AbstractConstraint
+class IsLike extends AbstractConstraint
 {
     public function __construct(
         private readonly mixed $expected,
