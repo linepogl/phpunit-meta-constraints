@@ -40,6 +40,17 @@ class IsLikeTest extends TestCase
         yield 'iterable is not like list (nested constraint)' => [[1,new Is(2),3], new ArrayIterator([1,22,3]), "Failed asserting that some ArrayIterator is like an array.\n→1: Failed asserting that 22 is 2.", "Failed asserting that 22 is 2."];
         yield 'iterable is not like list (count)' => [[1,2,3], new ArrayIterator([1,2,3,4]), "Failed asserting that some ArrayIterator is like an array.\nFailed asserting that actual size 4 matches expected size 3.", "Failed asserting that actual size 4 matches expected size 3."];
 
+        yield 'iterable with strange keys is not like list' => [[1,2,3], (static function () {
+            yield new X() => 1;
+            yield new X() => 2;
+            yield new X() => 3;
+        })(), "Failed asserting that some Generator is like an array.\nExpected keys of type int, got PHPUnitMetaConstraints\Tests\X instead\n", ''];
+        yield 'iterable with strange keys is not like array' => [['a' => 1,'b' => 2,'c' => 3], (static function () {
+            yield new X() => 1;
+            yield new X() => 2;
+            yield new X() => 3;
+        })(), "Failed asserting that some Generator is like an array.\nExpected keys of type int|string, got PHPUnitMetaConstraints\Tests\X instead\n", ''];
+
         yield 'array is like array' => [['a' => 1, 'b' => 2], ['a' => 1, 'b' => 2]];
         yield 'array with more keys is like array' => [['a' => 1, 'b' => 2], ['a' => 1, 'b' => 2, 'c' => 3]];
         yield 'array is not like array (missing keys)' => [['a' => 1, 'b' => 2], ['a' => 1], "Failed asserting that an array is like an array.\nFailed asserting that an array has the key 'b'.", "Failed asserting that an array has the key 'b'."];
@@ -76,4 +87,8 @@ class IsLikeTest extends TestCase
         $this->assertIs('is like 1', self::isLike(1)->toString());
         $this->assertIs('is 10', self::isLike(self::is(10))->toString());
     }
+}
+
+class X
+{
 }
