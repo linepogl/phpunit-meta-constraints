@@ -8,7 +8,6 @@ use ArrayIterator;
 use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\IteratesLike;
 use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 use PHPUnitMetaConstraints\Util\Util;
 use Throwable;
@@ -40,27 +39,27 @@ class IteratesLikeTest extends TestCase
     #[DataProvider('cases')]
     public function test_iterates_like(iterable $expected, mixed $actual, ?string $error = null, ?string $expectedAsString = null, ?string $actualAsString = null): void
     {
-        $constraint = new IteratesLike($expected);
+        $constraint = self::iteratesLike($expected);
         if (null === $error) {
             static::assertTrue($constraint->evaluate($actual, '', true));
-            $this->assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
-            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIteratesLike($expected, $actual));
-            $this->assertThrows(Throwable::class, fn() => $this->assertDoesNotIterateLike($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
+            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIteratesLike($expected, $actual));
+            self::assertThrows(Throwable::class, fn() => $this->assertDoesNotIterateLike($expected, $actual));
         } else {
             static::assertFalse($constraint->evaluate($actual, '', true));
-            $this->assertThrows(
+            self::assertThrows(
                 Util::expectationFailure($error, $expected, $actual, $expectedAsString, $actualAsString),
                 static fn() => $constraint->evaluate($actual),
             );
-            $this->assertThrows(
+            self::assertThrows(
                 Util::expectationFailure('Custom message', $expected, $actual, $expectedAsString, $actualAsString, $error),
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
             );
-            $this->assertThrows(
+            self::assertThrows(
                 Util::expectationFailure('Custom message', $expected, $actual, $expectedAsString, $actualAsString, $error),
                 fn() => $this->assertIteratesLike($expected, $actual, false, 'Custom message'),
             );
-            $this->assertDoesNotThrow(
+            self::assertDoesNotThrow(
                 Throwable::class,
                 fn() => $this->assertDoesNotIterateLike($expected, $actual, false),
             );
@@ -69,9 +68,9 @@ class IteratesLikeTest extends TestCase
 
     public function test_iterates_like_rewind(): void
     {
-        $this->assertDoesNotThrow(Throwable::class, static fn() => new IteratesLike([1, 2], rewind: true)->evaluate([1, 2]));
-        $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIteratesLike([1, 2], new ArrayIterator([1, 2]), rewind: true));
-        $this->assertThrows(
+        self::assertDoesNotThrow(Throwable::class, static fn() => self::iteratesLike([1, 2], rewind: true)->evaluate([1, 2]));
+        self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIteratesLike([1, 2], new ArrayIterator([1, 2]), rewind: true));
+        self::assertThrows(
             new Exception('Cannot traverse an already closed generator'),
             fn() => $this->assertIteratesLike([1, 2], (static function () {
                 yield 1;
@@ -82,7 +81,7 @@ class IteratesLikeTest extends TestCase
 
     public function test_to_string(): void
     {
-        $this->assertIs('iterates like an array', new IteratesLike([1, 2])->toString());
-        $this->assertIs('iterates like an array and rewinds', new IteratesLike([1, 2], rewind: true)->toString());
+        $this->assertIs('iterates like an array', self::iteratesLike([1, 2])->toString());
+        $this->assertIs('iterates like an array and rewinds', self::iteratesLike([1, 2], rewind: true)->toString());
     }
 }

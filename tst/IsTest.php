@@ -8,7 +8,6 @@ use DateTime;
 use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Is;
 use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 use PHPUnitMetaConstraints\Util\Util;
 use Throwable;
@@ -99,32 +98,32 @@ class IsTest extends TestCase
     #[DataProvider('cases')]
     public function test_is(mixed $expected, mixed $actual, ?string $error = null, ?string $expectedAsString = null, ?string $actualAsString = null): void
     {
-        $constraint = new Is($expected);
+        $constraint = self::is($expected);
         if (null === $error) {
-            $this->assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
+            self::assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
             static::assertTrue($constraint->evaluate($actual, '', true));
-            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIs($expected, $actual));
-            $this->assertThrows(Throwable::class, fn() => $this->assertIsNot($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIs($expected, $actual));
+            self::assertThrows(Throwable::class, fn() => $this->assertIsNot($expected, $actual));
         } else {
             static::assertFalse($constraint->evaluate($actual, '', true));
-            $this->assertThrows(
+            self::assertThrows(
                 Util::expectationFailure($error, $expected, $actual, $expectedAsString, $actualAsString),
                 static fn() => $constraint->evaluate($actual),
             );
-            $this->assertThrows(
+            self::assertThrows(
                 Util::expectationFailure('Custom message', $expected, $actual, $expectedAsString, $actualAsString, $error),
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
             );
-            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIsNot($expected, $actual));
-            $this->assertThrows(Throwable::class, fn() => $this->assertIs($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIsNot($expected, $actual));
+            self::assertThrows(Throwable::class, fn() => $this->assertIs($expected, $actual));
         }
     }
 
     public function test_to_string(): void
     {
-        $this->assertIs('is 1', new Is(1)->toString());
-        $this->assertIs('is 10', new Is(new Is(10))->toString());
-        $this->assertIs('is equal to an array', new Is([1, 2, 3])->toString());
-        $this->assertIs('is equal to some DateTime', new Is(new DateTime())->toString());
+        $this->assertIs('is 1', self::is(1)->toString());
+        $this->assertIs('is 10', self::is(self::is(10))->toString());
+        $this->assertIs('is equal to an array', self::is([1, 2, 3])->toString());
+        $this->assertIs('is equal to some DateTime', self::is(new DateTime())->toString());
     }
 }

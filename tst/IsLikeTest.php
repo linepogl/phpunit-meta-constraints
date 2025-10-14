@@ -9,7 +9,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Is;
-use PHPUnitMetaConstraints\IsLike;
 use PHPUnitMetaConstraints\IsUndefined;
 use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
 use PHPUnitMetaConstraints\Util\Util;
@@ -51,30 +50,30 @@ class IsLikeTest extends TestCase
     #[DataProvider('cases')]
     public function test_is_like(mixed $expected, mixed $actual, ?string $error = null, ?string $comparisonError = null): void
     {
-        $constraint = new IsLike($expected);
+        $constraint = self::isLike($expected);
         if (null === $error) {
-            $this->assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
+            self::assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
             static::assertTrue($constraint->evaluate($actual, '', true));
-            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIsLike($expected, $actual));
-            $this->assertThrows(Throwable::class, fn() => $this->assertIsNotLike($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIsLike($expected, $actual));
+            self::assertThrows(Throwable::class, fn() => $this->assertIsNotLike($expected, $actual));
         } else {
-            $this->assertThrows(
+            self::assertThrows(
                 Util::expectationFailure($error, $expected, $actual, null, null, $comparisonError),
                 static fn() => $constraint->evaluate($actual),
             );
-            $this->assertThrows(
+            self::assertThrows(
                 Util::expectationFailure('Custom message', $expected, $actual, null, null, $comparisonError ?? $error),
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
             );
             static::assertFalse($constraint->evaluate($actual, '', true));
-            $this->assertDoesNotThrow(Throwable::class, fn() => $this->assertIsNotLike($expected, $actual));
-            $this->assertThrows(Throwable::class, fn() => $this->assertIsLike($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIsNotLike($expected, $actual));
+            self::assertThrows(Throwable::class, fn() => $this->assertIsLike($expected, $actual));
         }
     }
 
     public function test_to_string(): void
     {
-        $this->assertIs('is like 1', new IsLike(1)->toString());
-        $this->assertIs('is 10', new IsLike(new Is(10))->toString());
+        $this->assertIs('is like 1', self::isLike(1)->toString());
+        $this->assertIs('is 10', self::isLike(self::is(10))->toString());
     }
 }
