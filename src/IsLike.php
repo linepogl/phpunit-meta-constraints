@@ -49,6 +49,9 @@ class IsLike extends AbstractConstraint
         $assert->assertIsIterable($actual, $errorDetails->prependMessage(), $errorDetails->comparisonFailure());
         $actualArray = [];
         foreach ($actual as $key => $value) {
+            if (!is_int($key)) {
+                $assert->fail($errorDetails->prependMessage('Expected keys of type int, got ' . Exporter::export($key) . ' instead'));
+            }
             $assert->assertArrayNotHasKey(
                 $key,
                 $actualArray,
@@ -95,6 +98,9 @@ class IsLike extends AbstractConstraint
         $assert->assertIsIterable($actual, $errorDetails->prependMessage(), $errorDetails->comparisonFailure());
         $actualArray = [];
         foreach ($actual as $key => $value) {
+            if (!is_string($key) && !is_int($key)) {
+                $assert->fail($errorDetails->prependMessage('Expected keys of type int|string, got ' . Exporter::export($key) . ' instead'));
+            }
             $assert->assertArrayNotHasKey(
                 $key,
                 $actualArray,
