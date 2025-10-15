@@ -8,13 +8,13 @@ use ArrayIterator;
 use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use PHPUnitMetaConstraints\Util\Util;
 use Throwable;
 
 class IteratesLikeTest extends TestCase
 {
-    use PhpUnitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     /**
      * @return iterable<string, array{iterable<mixed, mixed>, mixed}|array{iterable<mixed, mixed>, mixed, ?string}>

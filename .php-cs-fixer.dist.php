@@ -8,7 +8,7 @@ return $config
     ->setRiskyAllowed(true)
     ->setFinder(new PhpCsFixer\Finder()->in([__DIR__]))
     ->setRules([
-        '@PHP80Migration' => true,
+        '@PHP8x0Migration' => true,
         '@PSR12' => true,
         '@PER-CS' => true,
         'array_indentation' => true,

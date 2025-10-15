@@ -8,7 +8,7 @@ use DateTime;
 use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use PHPUnitMetaConstraints\Util\Util;
 use Throwable;
 
@@ -25,7 +25,7 @@ class AA extends A
 
 class IsTest extends TestCase
 {
-    use PhpUnitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     /**
      * @return iterable<string, array{mixed, mixed}|array{mixed, mixed, string}|array{mixed, mixed, string, string, string}>

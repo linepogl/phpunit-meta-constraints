@@ -16,7 +16,7 @@ use Throwable;
 /**
  * @phpstan-require-extends Assert
  */
-trait PhpUnitMetaConstraintsTrait
+trait PHPUnitMetaConstraintsTrait
 {
     final public static function is(mixed $expected): Is
     {

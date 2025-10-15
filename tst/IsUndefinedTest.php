@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace PHPUnitMetaConstraints\Tests;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use RuntimeException;
 
 class IsUndefinedTest extends TestCase
 {
-    use PhpUnitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_is_undefined(): void
     {

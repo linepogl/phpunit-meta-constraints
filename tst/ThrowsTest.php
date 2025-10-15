@@ -6,12 +6,12 @@ namespace PHPUnitMetaConstraints\Tests;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use RuntimeException;
 
 class ThrowsTest extends TestCase
 {
-    use PhpUnitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     public function test_throws(): void
     {

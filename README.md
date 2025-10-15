@@ -14,7 +14,7 @@ Optionally, you can include the helper trait in your test cases:
 ```php
 final class MyTestCase extends TestCase
 {
-    use PhpUnitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
     ...
 }
 ```

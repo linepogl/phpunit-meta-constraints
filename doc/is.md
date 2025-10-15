@@ -16,7 +16,7 @@ self::assertEquals(1, '1'); // passes unexpectedly (false positive)
 self::assertSame(1, '1');   // fails as expected
 ```
 
-When comparing objects, however, the `===` comparison is not the most useful. PhpUnit provides some ways to work around this, by adding equality comparison overloads to the `assertEquals` method.
+When comparing objects, however, the `===` comparison is not the most useful. PHPUnit provides some ways to work around this, by adding equality comparison overloads to the `assertEquals` method.
 
 ```php
 $a = new DateTimeImmutable('2000-01-01');

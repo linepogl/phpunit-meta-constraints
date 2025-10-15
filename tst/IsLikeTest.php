@@ -10,13 +10,13 @@ use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Is;
 use PHPUnitMetaConstraints\IsUndefined;
-use PHPUnitMetaConstraints\Util\PhpUnitMetaConstraintsTrait;
+use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use PHPUnitMetaConstraints\Util\Util;
 use Throwable;
 
 class IsLikeTest extends TestCase
 {
-    use PhpUnitMetaConstraintsTrait;
+    use PHPUnitMetaConstraintsTrait;
 
     /**
      * @return iterable<string, array{mixed, mixed}|array{mixed, mixed, string}|array{mixed, mixed, string, string}>
