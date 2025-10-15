@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PHPUnitMetaConstraints\Tests;
 
 use ArrayIterator;
-use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\TestCase;
