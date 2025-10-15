@@ -17,18 +17,18 @@ class ThrowsTest extends TestCase
     {
         $f1 = static fn() => throw new RuntimeException('Test');
         $f2 = static fn() => null;
-        static::assertTrue(self::Throws(RuntimeException::class)->evaluate($f1, '', true));
-        static::assertTrue(self::Throws(new RuntimeException('Test'))->evaluate($f1, '', true));
-        static::assertFalse(self::Throws(new RuntimeException('Test1'))->evaluate($f1, '', true));
-        static::assertFalse(self::Throws(InvalidArgumentException::class)->evaluate($f1, '', true));
-        static::assertFalse(self::Throws(new InvalidArgumentException('Test'))->evaluate($f1, '', true));
-        static::assertFalse(self::Throws(RuntimeException::class)->evaluate($f2, '', true));
-        static::assertFalse(self::Throws(new RuntimeException('Test'))->evaluate($f2, '', true));
+        static::assertTrue(self::throws(RuntimeException::class)->evaluate($f1, '', true));
+        static::assertTrue(self::throws(new RuntimeException('Test'))->evaluate($f1, '', true));
+        static::assertFalse(self::throws(new RuntimeException('Test1'))->evaluate($f1, '', true));
+        static::assertFalse(self::throws(InvalidArgumentException::class)->evaluate($f1, '', true));
+        static::assertFalse(self::throws(new InvalidArgumentException('Test'))->evaluate($f1, '', true));
+        static::assertFalse(self::throws(RuntimeException::class)->evaluate($f2, '', true));
+        static::assertFalse(self::throws(new RuntimeException('Test'))->evaluate($f2, '', true));
     }
 
     public function test_to_string(): void
     {
-        self::assertIs('throws RuntimeException', self::Throws(RuntimeException::class)->toString());
-        self::assertIs('throws RuntimeException', self::Throws(new RuntimeException())->toString());
+        self::assertIs('throws RuntimeException', self::throws(RuntimeException::class)->toString());
+        self::assertIs('throws RuntimeException', self::throws(new RuntimeException())->toString());
     }
 }
