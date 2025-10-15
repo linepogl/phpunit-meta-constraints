@@ -3,6 +3,6 @@
 A constraint to test that a function throws an exception.
 
 ```php
-self::assertTrows($expected, function(){ $actual });
-function() { $actual } |> self::trows($expected);
+self::assertThrows($expected, function(){ $actual });
+function() { $actual } |> self::throws($expected);
 ```
