@@ -19,6 +19,6 @@ class IsUndefinedTest extends TestCase
 
     public function test_to_string(): void
     {
-        $this->assertIs('is undefined', self::isUndefined()->toString());
+        self::assertIs('is undefined', self::isUndefined()->toString());
     }
 }

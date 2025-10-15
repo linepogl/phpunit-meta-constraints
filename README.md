@@ -20,40 +20,9 @@ final class MyTestCase extends TestCase
 ```
 
 
-## Constraints
+### Constraints refererce
 
-### Is
-
-A constraint that combines `assertEquals` and `assertSame` into one.
-
-```php
-self::assertIs($expected, $actual);
-$actual |> self::is($expected);
-```
-
-### IsLike
-
-A constraint of constraints.
-
-```php
-self::assertIsLike($expected, $actual);
-$actual |> self::isLike($expected);
-```
-
-### IteratesLike
-
-A constraint to test iterables, without converting them to arrays.
-
-```php
-self::assertIteratesLike($expected, $actual);
-$actual |> self::iteratesLike($expected, rewind: true);
-```
-
-### Throws
-
-A constraint to test that a function throws an exception.
-
-```php
-self::assertTrows($expected, function(){ $actual });
-fn(){ $actual } |> self::trows($expected);
-```
+- [Is](doc/is.md)
+- [IsLike](doc/is_like.md)
+- [IteratesLike](doc/iterates_like.md)
+- [Throws](doc/throws.md)

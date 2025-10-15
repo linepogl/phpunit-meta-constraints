@@ -102,8 +102,8 @@ class IsTest extends TestCase
         if (null === $error) {
             self::assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
             static::assertTrue($constraint->evaluate($actual, '', true));
-            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIs($expected, $actual));
-            self::assertThrows(Throwable::class, fn() => $this->assertIsNot($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, static fn() => self::assertIs($expected, $actual));
+            self::assertThrows(Throwable::class, static fn() => self::assertIsNot($expected, $actual));
         } else {
             static::assertFalse($constraint->evaluate($actual, '', true));
             self::assertThrows(
@@ -114,16 +114,16 @@ class IsTest extends TestCase
                 Util::expectationFailure('Custom message', $expected, $actual, $expectedAsString, $actualAsString, $error),
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
             );
-            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIsNot($expected, $actual));
-            self::assertThrows(Throwable::class, fn() => $this->assertIs($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, static fn() => self::assertIsNot($expected, $actual));
+            self::assertThrows(Throwable::class, static fn() => self::assertIs($expected, $actual));
         }
     }
 
     public function test_to_string(): void
     {
-        $this->assertIs('is 1', self::is(1)->toString());
-        $this->assertIs('is 10', self::is(self::is(10))->toString());
-        $this->assertIs('is equal to an array', self::is([1, 2, 3])->toString());
-        $this->assertIs('is equal to some DateTime', self::is(new DateTime())->toString());
+        self::assertIs('is 1', self::is(1)->toString());
+        self::assertIs('is 10', self::is(self::is(10))->toString());
+        self::assertIs('is equal to an array', self::is([1, 2, 3])->toString());
+        self::assertIs('is equal to some DateTime', self::is(new DateTime())->toString());
     }
 }

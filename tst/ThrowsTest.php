@@ -28,7 +28,7 @@ class ThrowsTest extends TestCase
 
     public function test_to_string(): void
     {
-        $this->assertIs('throws RuntimeException', self::Throws(RuntimeException::class)->toString());
-        $this->assertIs('throws RuntimeException', self::Throws(new RuntimeException())->toString());
+        self::assertIs('throws RuntimeException', self::Throws(RuntimeException::class)->toString());
+        self::assertIs('throws RuntimeException', self::Throws(new RuntimeException())->toString());
     }
 }

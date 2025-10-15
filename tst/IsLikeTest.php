@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PHPUnitMetaConstraints\Tests;
 
 use ArrayIterator;
+use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\TestCase;
@@ -65,8 +66,8 @@ class IsLikeTest extends TestCase
         if (null === $error) {
             self::assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
             static::assertTrue($constraint->evaluate($actual, '', true));
-            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIsLike($expected, $actual));
-            self::assertThrows(Throwable::class, fn() => $this->assertIsNotLike($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, static fn() => self::assertIsLike($expected, $actual));
+            self::assertThrows(Throwable::class, static fn() => self::assertIsNotLike($expected, $actual));
         } else {
             self::assertThrows(
                 Util::expectationFailure($error, $expected, $actual, null, null, $comparisonError),
@@ -77,15 +78,15 @@ class IsLikeTest extends TestCase
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
             );
             static::assertFalse($constraint->evaluate($actual, '', true));
-            self::assertDoesNotThrow(Throwable::class, fn() => $this->assertIsNotLike($expected, $actual));
-            self::assertThrows(Throwable::class, fn() => $this->assertIsLike($expected, $actual));
+            self::assertDoesNotThrow(Throwable::class, static fn() => self::assertIsNotLike($expected, $actual));
+            self::assertThrows(Throwable::class, static fn() => self::assertIsLike($expected, $actual));
         }
     }
 
     public function test_to_string(): void
     {
-        $this->assertIs('is like 1', self::isLike(1)->toString());
-        $this->assertIs('is 10', self::isLike(self::is(10))->toString());
+        self::assertIs('is like 1', self::isLike(1)->toString());
+        self::assertIs('is 10', self::isLike(self::is(10))->toString());
     }
 }
 
