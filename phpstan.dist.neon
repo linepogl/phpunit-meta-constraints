@@ -9,7 +9,7 @@ parameters:
   paths:
     - src
     - dev
-    - tst
+    - tests
   excludePaths:
     - **/*Php85*.php
   fileExtensions:
