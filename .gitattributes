@@ -1,9 +1,11 @@
 /.idea export-ignore
 /.github export-ignore
 /dev export-ignore
+/doc export-ignore
 /tests export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
-/.php-cs-fixed.dist.php export-ignore
+/.php-cs-fixer.dist.php export-ignore
 /phpstan.dist.neon export-ignore
 /phpunit.dist.xml export-ignore
+/README.md export-ignore
