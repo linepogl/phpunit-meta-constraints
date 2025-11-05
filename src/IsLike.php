@@ -6,6 +6,8 @@ namespace PHPUnitMetaConstraints;
 
 use Override;
 use PHPUnit\Framework\Constraint\Constraint;
+use PHPUnit\Framework\Constraint\LogicalNot;
+use PHPUnit\Framework\Constraint\Operator;
 use PHPUnit\Util\Exporter;
 use PHPUnitMetaConstraints\Util\CustomAssert;
 use PHPUnitMetaConstraints\Util\IsLikeErrorDetails;
@@ -22,6 +24,20 @@ class IsLike extends AbstractConstraint
     public function toString(): string
     {
         return $this->expected instanceof Constraint ? $this->expected->toString() : 'is like ' . Util::anyToString($this->expected);
+    }
+
+    #[Override]
+    public function toStringInContext(Operator $operator, mixed $role): string
+    {
+        if ($this->expected instanceof Constraint) {
+            return $this->expected->toStringInContext($operator, $role);
+        }
+
+        if ($operator instanceof LogicalNot) {
+            return 'is not like ' . Util::anyToString($this->expected);
+        }
+
+        return '';
     }
 
     #[Override]

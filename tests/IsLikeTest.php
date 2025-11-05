@@ -86,6 +86,10 @@ class IsLikeTest extends TestCase
     {
         self::assertIs('is like 1', self::isLike(1)->toString());
         self::assertIs('is 10', self::isLike(self::is(10))->toString());
+        self::assertIs('is not like 1', static::logicalNot(self::isLike(1))->toString());
+        self::assertIs('is not 10', static::logicalNot(self::isLike(self::is(10)))->toString());
+
+        self::assertIs('is like 1 and is like 1', static::logicalAnd(self::isLike(1), self::isLike(1))->toString());
     }
 }
 

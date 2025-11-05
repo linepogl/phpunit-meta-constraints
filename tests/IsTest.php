@@ -125,5 +125,12 @@ class IsTest extends TestCase
         self::assertIs('is 10', self::is(self::is(10))->toString());
         self::assertIs('is equal to an array', self::is([1, 2, 3])->toString());
         self::assertIs('is equal to some DateTime', self::is(new DateTime())->toString());
+
+        self::assertIs('is not 1', static::logicalNot(self::is(1))->toString());
+        self::assertIs('is not 10', static::logicalNot(self::is(self::is(10)))->toString());
+        self::assertIs('is not equal to an array', static::logicalNot(self::is([1, 2, 3]))->toString());
+        self::assertIs('is not equal to some DateTime', static::logicalNot(self::is(new DateTime()))->toString());
+
+        self::assertIs('is 1 and is 1', static::logicalAnd(self::is(1), self::is(1))->toString());
     }
 }

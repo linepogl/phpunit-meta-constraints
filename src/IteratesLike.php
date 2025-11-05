@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace PHPUnitMetaConstraints;
 
 use Override;
+use PHPUnit\Framework\Constraint\LogicalNot;
+use PHPUnit\Framework\Constraint\Operator;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Util\Exporter;
 use PHPUnitMetaConstraints\Util\CustomAssert;
@@ -25,6 +27,15 @@ class IteratesLike extends AbstractConstraint
     public function toString(): string
     {
         return 'iterates like ' . Util::anyToString($this->expected) . ($this->rewind ? ' and rewinds' : '');
+    }
+
+    #[Override]
+    public function toStringInContext(Operator $operator, mixed $role): string
+    {
+        if ($operator instanceof LogicalNot) {
+            return 'does not iterate like ' . Util::anyToString($this->expected) . ($this->rewind ? ' or rewinds' : '');
+        }
+        return '';
     }
 
     #[Override]

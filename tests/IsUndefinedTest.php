@@ -20,5 +20,7 @@ class IsUndefinedTest extends TestCase
     public function test_to_string(): void
     {
         self::assertIs('is undefined', self::isUndefined()->toString());
+        self::assertIs('is not undefined', static::logicalNot(self::isUndefined())->toString());
+        self::assertIs('is undefined and is undefined', static::logicalAnd(self::isUndefined(), self::isUndefined())->toString());
     }
 }

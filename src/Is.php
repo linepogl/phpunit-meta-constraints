@@ -6,6 +6,8 @@ namespace PHPUnitMetaConstraints;
 
 use Override;
 use PHPUnit\Framework\Constraint\Constraint;
+use PHPUnit\Framework\Constraint\LogicalNot;
+use PHPUnit\Framework\Constraint\Operator;
 use PHPUnit\Util\Exporter;
 use PHPUnitMetaConstraints\Util\CustomAssert;
 use PHPUnitMetaConstraints\Util\Util;
@@ -33,6 +35,24 @@ class Is extends AbstractConstraint
             $this->expected instanceof Constraint => $this->expected->toString(),
             default => 'is equal to some ' . get_debug_type($this->expected),
         };
+    }
+    #[Override]
+    public function toStringInContext(Operator $operator, mixed $role): string
+    {
+        if ($this->expected instanceof Constraint) {
+            return $this->expected->toStringInContext($operator, $role);
+        }
+
+        if ($operator instanceof LogicalNot) {
+            return match (true) {
+                null === $this->expected,
+                is_scalar($this->expected) => 'is not ' . Exporter::export($this->expected),
+                is_array($this->expected) => 'is not equal to an array',
+                default => 'is not equal to some ' . get_debug_type($this->expected),
+            };
+        }
+
+        return '';
     }
 
     #[Override]

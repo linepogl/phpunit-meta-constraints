@@ -83,5 +83,10 @@ class IteratesLikeTest extends TestCase
     {
         self::assertIs('iterates like an array', self::iteratesLike([1, 2])->toString());
         self::assertIs('iterates like an array and rewinds', self::iteratesLike([1, 2], rewind: true)->toString());
+
+        self::assertIs('does not iterate like an array', static::logicalNot(self::iteratesLike([1, 2]))->toString());
+        self::assertIs('does not iterate like an array or rewinds', static::logicalNot(self::iteratesLike([1, 2], rewind: true))->toString());
+
+        self::assertIs('iterates like an array and iterates like an array', static::logicalAnd(self::iteratesLike([1, 2]), self::iteratesLike([1, 2]))->toString());
     }
 }

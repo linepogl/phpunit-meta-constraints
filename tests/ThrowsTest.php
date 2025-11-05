@@ -30,5 +30,9 @@ class ThrowsTest extends TestCase
     {
         self::assertIs('throws RuntimeException', self::throws(RuntimeException::class)->toString());
         self::assertIs('throws RuntimeException', self::throws(new RuntimeException())->toString());
+        self::assertIs('does not throw RuntimeException', static::logicalNot(self::throws(RuntimeException::class))->toString());
+        self::assertIs('does not throw RuntimeException', static::logicalNot(self::throws(new RuntimeException()))->toString());
+
+        self::assertIs('throws RuntimeException and throws RuntimeException', static::logicalAnd(self::throws(RuntimeException::class), self::throws(RuntimeException::class))->toString());
     }
 }

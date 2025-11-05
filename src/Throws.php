@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace PHPUnitMetaConstraints;
 
 use Override;
+use PHPUnit\Framework\Constraint\LogicalNot;
+use PHPUnit\Framework\Constraint\Operator;
 use PHPUnitMetaConstraints\Util\CustomAssert;
 use ReflectionClass;
 use Throwable;
@@ -26,6 +28,15 @@ class Throws extends AbstractConstraint
     public function toString(): string
     {
         return 'throws ' . (is_string($this->expected) ? $this->expected : $this->expected::class);
+    }
+
+    #[Override]
+    public function toStringInContext(Operator $operator, mixed $role): string
+    {
+        if ($operator instanceof LogicalNot) {
+            return 'does not throw ' . (is_string($this->expected) ? $this->expected : $this->expected::class);
+        }
+        return $this->toString();
     }
 
     /**
