@@ -10,8 +10,6 @@ parameters:
     - src
     - dev
     - tests
-  excludePaths:
-    - **/*Php85*.php
   fileExtensions:
     - php
   tmpDir: var/cache/.phpstan
