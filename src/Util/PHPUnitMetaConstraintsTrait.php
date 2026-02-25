@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PHPUnitMetaConstraints\Util;
 
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnitMetaConstraints\Is;
 use PHPUnitMetaConstraints\IsLike;
@@ -75,6 +76,11 @@ trait PHPUnitMetaConstraintsTrait
     final public static function isUndefined(): IsUndefined
     {
         return new IsUndefined();
+    }
+
+    final public static function isDefined(): Constraint
+    {
+        return new LogicalNot(new IsUndefined());
     }
 
     /**

@@ -9,7 +9,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\TestCase;
 use PHPUnitMetaConstraints\Is;
-use PHPUnitMetaConstraints\IsUndefined;
 use PHPUnitMetaConstraints\Util\PHPUnitMetaConstraintsTrait;
 use PHPUnitMetaConstraints\Util\Util;
 use Throwable;
@@ -25,14 +24,15 @@ class IsLikeTest extends TestCase
     {
         yield 'int is like int' => [1, 1];
         yield 'int is not like int' => [1, 2, "Failed asserting that 2 is like 1.\nFailed asserting that 2 is 1.", 'Failed asserting that 2 is 1.'];
-        yield 'int is like Constraint' => [new Is(1), 1];
-        yield 'int is not like Constraint' => [new Is(1), 2, "Failed asserting that 2 is 1."];
+        yield 'int is like Constraint' => [self::is(1), 1];
+        yield 'int is not like Constraint' => [self::is(1), 2, "Failed asserting that 2 is 1."];
         yield 'string is like RegExp' => [new RegularExpression('/^[0-9]$/'), '1'];
         yield 'string is not like RegExp' => [new RegularExpression('/^[0-9]$/'), 'X', "Failed asserting that 'X' matches PCRE pattern \"/^[0-9]$/\"."];
 
         yield 'list is like list' => [[1,2,3], [1,2,3]];
         yield 'list is not like list (count)' => [[1,2,3], [1,2,3,4], "Failed asserting that an array is like an array.\nFailed asserting that actual size 4 matches expected size 3.", "Failed asserting that actual size 4 matches expected size 3."];
-        yield 'list is not like list (undefined)' => [[1,2,3,new IsUndefined()], [1,2,3,4], "Failed asserting that an array is like an array.\nFailed asserting that an array does not have the key 3.", "Failed asserting that an array does not have the key 3."];
+        yield 'list is not like list (undefined)' => [[1,2,3,self::isUndefined()], [1,2,3,4], "Failed asserting that an array is like an array.\nFailed asserting that an array does not have the key 3.", "Failed asserting that an array does not have the key 3."];
+        yield 'list is not like list (defined)' => [[1,2,3,self::isDefined()], [1,2,3], "Failed asserting that an array is like an array.\nFailed asserting that an array has the key 3.", "Failed asserting that an array has the key 3."];
 
         yield 'iterable is like list' => [[1,2,3], new ArrayIterator([1,2,3])];
         yield 'not iterable is like list' => [[1,2,3], 1, "Failed asserting that 1 is like an array.\nFailed asserting that 1 is of type iterable.", "Failed asserting that 1 is of type iterable."];
@@ -54,8 +54,10 @@ class IsLikeTest extends TestCase
         yield 'array is like array' => [['a' => 1, 'b' => 2], ['a' => 1, 'b' => 2]];
         yield 'array with more keys is like array' => [['a' => 1, 'b' => 2], ['a' => 1, 'b' => 2, 'c' => 3]];
         yield 'array is not like array (missing keys)' => [['a' => 1, 'b' => 2], ['a' => 1], "Failed asserting that an array is like an array.\nFailed asserting that an array has the key 'b'.", "Failed asserting that an array has the key 'b'."];
-        yield 'array is like array (undefined keys)' => [['a' => 1, 'b' => new IsUndefined()], ['a' => 1]];
-        yield 'array is not like array (undefined keys)' => [['a' => 1, 'b' => new IsUndefined()], ['a' => 1, 'b' => 2], "Failed asserting that an array is like an array.\nFailed asserting that an array does not have the key 'b'.", "Failed asserting that an array does not have the key 'b'."];
+        yield 'array is like array (undefined keys)' => [['a' => 1, 'b' => self::isUndefined()], ['a' => 1]];
+        yield 'array is not like array (undefined keys)' => [['a' => 1, 'b' => self::isUndefined()], ['a' => 1, 'b' => 2], "Failed asserting that an array is like an array.\nFailed asserting that an array does not have the key 'b'.", "Failed asserting that an array does not have the key 'b'."];
+        yield 'array is like array (defined keys)' => [['a' => 1, 'b' => self::isDefined()], ['a' => 1, 'b' => 2]];
+        yield 'array is not like array (defined keys)' => [['a' => 1, 'b' => self::isDefined()], ['a' => 1], "Failed asserting that an array is like an array.\nFailed asserting that an array has the key 'b'.", "Failed asserting that an array has the key 'b'."];
     }
 
     #[DataProvider('cases')]

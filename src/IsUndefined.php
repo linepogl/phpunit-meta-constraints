@@ -25,7 +25,7 @@ class IsUndefined extends AbstractConstraint
     public function toStringInContext(Operator $operator, mixed $role): string
     {
         if ($operator instanceof LogicalNot) {
-            return 'is not undefined';
+            return 'is defined';
         }
         return '';
     }

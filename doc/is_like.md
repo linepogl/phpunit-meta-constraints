@@ -30,9 +30,12 @@ $actual |> self::isLike([
     // Any kind of constraint can be used
     'age' => self::greaterThan(18),
     
-    // ExtBy default, we don't care if the array contains more attributes. Here is
+    // Make sure that an attribute exists, without caring about its value 
+    'gender' => self::isDefined(),
+
+    // By default, we don't care if the array contains more attributes. Here is
     // how to require that an attribute should not be present:
     'height' => self::isUndefined(),
-
+    
 ]);
 ```
