@@ -70,7 +70,9 @@ class IteratesLike extends AbstractConstraint
         }
 
         if ($this->rewind) {
-            iterator_to_array($actual); // iterate once more to see if it is rewindable
+            foreach ($actual as $key => $value) {
+                // do nothing, just iterate once more to see if it is rewindable
+            }
         }
     }
 
