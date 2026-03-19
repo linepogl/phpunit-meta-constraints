@@ -33,7 +33,7 @@ return $config
         'modernize_strpos' => true,
         'native_function_invocation' => ['include' => [], 'strict'  => true],
         'non_printable_character' => true,
-        'php_unit_test_case_static_method_calls' => ['call_type' => 'static'],
+        'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
         'static_lambda' => true,
         'declare_strict_types' => true,
         'no_useless_else' => true,
