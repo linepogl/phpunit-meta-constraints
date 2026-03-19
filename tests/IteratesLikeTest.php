@@ -41,12 +41,12 @@ class IteratesLikeTest extends TestCase
     {
         $constraint = self::iteratesLike($expected);
         if (null === $error) {
-            static::assertTrue($constraint->evaluate($actual, '', true));
+            self::assertTrue($constraint->evaluate($actual, '', true));
             self::assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
             self::assertDoesNotThrow(Throwable::class, static fn() => self::assertIteratesLike($expected, $actual));
             self::assertThrows(Throwable::class, static fn() => self::assertDoesNotIterateLike($expected, $actual));
         } else {
-            static::assertFalse($constraint->evaluate($actual, '', true));
+            self::assertFalse($constraint->evaluate($actual, '', true));
             self::assertThrows(
                 Util::expectationFailure($error, $expected, $actual, $expectedAsString, $actualAsString),
                 static fn() => $constraint->evaluate($actual),
@@ -84,8 +84,8 @@ class IteratesLikeTest extends TestCase
         self::assertIs('iterates like an array', self::iteratesLike([1, 2])->toString());
         self::assertIs('iterates like an array and rewinds', self::iteratesLike([1, 2], rewind: true)->toString());
 
-        self::assertIs('does not iterate like an array', static::logicalNot(self::iteratesLike([1, 2]))->toString());
-        self::assertIs('does not iterate like an array or rewinds', static::logicalNot(self::iteratesLike([1, 2], rewind: true))->toString());
+        self::assertIs('does not iterate like an array', self::logicalNot(self::iteratesLike([1, 2]))->toString());
+        self::assertIs('does not iterate like an array or rewinds', self::logicalNot(self::iteratesLike([1, 2], rewind: true))->toString());
 
         self::assertIs('iterates like an array and iterates like an array', static::logicalAnd(self::iteratesLike([1, 2]), self::iteratesLike([1, 2]))->toString());
     }

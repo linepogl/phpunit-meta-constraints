@@ -94,6 +94,15 @@ trait PHPUnitMetaConstraintsTrait
     }
 
     /**
+     * @template E of Throwable
+     * @param class-string<E>|E $expected
+     */
+    final public static function doesNotThrow(string|Throwable $expected = Throwable::class): Constraint
+    {
+        return new LogicalNot(new Throws($expected));
+    }
+
+    /**
      * @param class-string<Throwable>|Throwable $expected
      * @param callable():mixed $actual
      */

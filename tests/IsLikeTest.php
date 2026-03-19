@@ -66,7 +66,7 @@ class IsLikeTest extends TestCase
         $constraint = self::isLike($expected);
         if (null === $error) {
             self::assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
-            static::assertTrue($constraint->evaluate($actual, '', true));
+            self::assertTrue($constraint->evaluate($actual, '', true));
             self::assertDoesNotThrow(Throwable::class, static fn() => self::assertIsLike($expected, $actual));
             self::assertThrows(Throwable::class, static fn() => self::assertIsNotLike($expected, $actual));
         } else {
@@ -78,7 +78,7 @@ class IsLikeTest extends TestCase
                 Util::expectationFailure('Custom message', $expected, $actual, null, null, $comparisonError ?? $error),
                 static fn() => $constraint->evaluate($actual, 'Custom message'),
             );
-            static::assertFalse($constraint->evaluate($actual, '', true));
+            self::assertFalse($constraint->evaluate($actual, '', true));
             self::assertDoesNotThrow(Throwable::class, static fn() => self::assertIsNotLike($expected, $actual));
             self::assertThrows(Throwable::class, static fn() => self::assertIsLike($expected, $actual));
         }
@@ -88,8 +88,8 @@ class IsLikeTest extends TestCase
     {
         self::assertIs('is like 1', self::isLike(1)->toString());
         self::assertIs('is 10', self::isLike(self::is(10))->toString());
-        self::assertIs('is not like 1', static::logicalNot(self::isLike(1))->toString());
-        self::assertIs('is not 10', static::logicalNot(self::isLike(self::is(10)))->toString());
+        self::assertIs('is not like 1', self::logicalNot(self::isLike(1))->toString());
+        self::assertIs('is not 10', self::logicalNot(self::isLike(self::is(10)))->toString());
 
         self::assertIs('is like 1 and is like 1', static::logicalAnd(self::isLike(1), self::isLike(1))->toString());
     }
