@@ -22,8 +22,8 @@ class IsUndefinedTest extends TestCase
     {
         self::assertIs('is undefined', self::isUndefined()->toString());
         self::assertIs('is defined', self::isDefined()->toString());
-        self::assertIs('is defined', self::logicalNot(self::isUndefined())->toString());
-        self::assertIs('is undefined', self::logicalNot(self::isDefined())->toString());
+        self::assertIs('is defined', static::logicalNot(self::isUndefined())->toString());
+        self::assertIs('is undefined', static::logicalNot(self::isDefined())->toString());
         self::assertIs('is undefined and is undefined', static::logicalAnd(self::isUndefined(), self::isUndefined())->toString());
         self::assertIs('is defined and is defined', static::logicalAnd(self::isDefined(), self::isDefined())->toString());
     }

@@ -101,11 +101,11 @@ class IsTest extends TestCase
         $constraint = self::is($expected);
         if (null === $error) {
             self::assertDoesNotThrow(Throwable::class, static fn() => $constraint->evaluate($actual));
-            self::assertTrue($constraint->evaluate($actual, '', true));
+            static::assertTrue($constraint->evaluate($actual, '', true));
             self::assertDoesNotThrow(Throwable::class, static fn() => self::assertIs($expected, $actual));
             self::assertThrows(Throwable::class, static fn() => self::assertIsNot($expected, $actual));
         } else {
-            self::assertFalse($constraint->evaluate($actual, '', true));
+            static::assertFalse($constraint->evaluate($actual, '', true));
             self::assertThrows(
                 Util::expectationFailure($error, $expected, $actual, $expectedAsString, $actualAsString),
                 static fn() => $constraint->evaluate($actual),
@@ -126,10 +126,10 @@ class IsTest extends TestCase
         self::assertIs('is equal to an array', self::is([1, 2, 3])->toString());
         self::assertIs('is equal to some DateTime', self::is(new DateTime())->toString());
 
-        self::assertIs('is not 1', self::logicalNot(self::is(1))->toString());
-        self::assertIs('is not 10', self::logicalNot(self::is(self::is(10)))->toString());
-        self::assertIs('is not equal to an array', self::logicalNot(self::is([1, 2, 3]))->toString());
-        self::assertIs('is not equal to some DateTime', self::logicalNot(self::is(new DateTime()))->toString());
+        self::assertIs('is not 1', static::logicalNot(self::is(1))->toString());
+        self::assertIs('is not 10', static::logicalNot(self::is(self::is(10)))->toString());
+        self::assertIs('is not equal to an array', static::logicalNot(self::is([1, 2, 3]))->toString());
+        self::assertIs('is not equal to some DateTime', static::logicalNot(self::is(new DateTime()))->toString());
 
         self::assertIs('is 1 and is 1', static::logicalAnd(self::is(1), self::is(1))->toString());
     }
