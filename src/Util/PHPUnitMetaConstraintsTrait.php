@@ -24,6 +24,11 @@ trait PHPUnitMetaConstraintsTrait
         return new Is($expected);
     }
 
+    final public static function isNot(mixed $expected): Constraint
+    {
+        return new LogicalNot(new Is($expected));
+    }
+
     public static function assertIs(mixed $expected, mixed $actual, string $messsage = ''): void
     {
         Assert::assertThat($actual, new Is($expected), $messsage);
@@ -37,6 +42,11 @@ trait PHPUnitMetaConstraintsTrait
     final public static function isLike(mixed $expected): IsLike
     {
         return new IsLike($expected);
+    }
+
+    final public static function isNotLike(mixed $expected): Constraint
+    {
+        return new LogicalNot(new IsLike($expected));
     }
 
     public static function assertIsLike(mixed $expected, mixed $actual, string $messsage = ''): void
@@ -55,6 +65,14 @@ trait PHPUnitMetaConstraintsTrait
     final public static function iteratesLike(iterable $expected, bool $rewind = false): IteratesLike
     {
         return new IteratesLike($expected, $rewind);
+    }
+
+    /**
+     * @param iterable<mixed,mixed> $expected
+     */
+    final public static function doesNotIterateLike(iterable $expected, bool $rewind = false): Constraint
+    {
+        return new LogicalNot(new IteratesLike($expected, $rewind));
     }
 
     /**
