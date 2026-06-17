@@ -58,6 +58,11 @@ class IsLikeTest extends TestCase
         yield 'array is not like array (undefined keys)' => [['a' => 1, 'b' => self::isUndefined()], ['a' => 1, 'b' => 2], "Failed asserting that an array is like an array.\nFailed asserting that an array does not have the key 'b'.", "Failed asserting that an array does not have the key 'b'."];
         yield 'array is like array (defined keys)' => [['a' => 1, 'b' => self::isDefined()], ['a' => 1, 'b' => 2]];
         yield 'array is not like array (defined keys)' => [['a' => 1, 'b' => self::isDefined()], ['a' => 1], "Failed asserting that an array is like an array.\nFailed asserting that an array has the key 'b'.", "Failed asserting that an array has the key 'b'."];
+
+        yield 'stdClass is like stdClass' => [(object)['a' => 1, 'b' => 2], (object)['a' => 1, 'b' => 2]];
+        yield 'stdClass with more keys is like stdClass' => [(object)['a' => 1, 'b' => 2], (object)['a' => 1, 'b' => 2, 'c' => 3]];
+        yield 'stdClass is like stdClass (undefined keys)' => [(object)['a' => 1, 'b' => self::isUndefined()], (object)['a' => 1]];
+        yield 'stdClass is like stdClass (defined keys)' => [(object)['a' => 1, 'b' => self::isDefined()], (object)['a' => 1, 'b' => 2]];
     }
 
     #[DataProvider('cases')]
