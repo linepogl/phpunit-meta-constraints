@@ -12,6 +12,7 @@ use PHPUnit\Util\Exporter;
 use PHPUnitMetaConstraints\Util\CustomAssert;
 use PHPUnitMetaConstraints\Util\IsLikeErrorDetails;
 use PHPUnitMetaConstraints\Util\Util;
+use stdClass;
 
 class IsLike extends AbstractConstraint
 {
@@ -52,6 +53,9 @@ class IsLike extends AbstractConstraint
             } else {
                 $this->doEvaluateIsLikeArray($this->expected, $actual, $assert, $errorDetails);
             }
+        } elseif ($this->expected instanceof stdClass) {
+            $assert->assertInstanceOf(stdClass::class, $actual, $errorDetails->prependMessage(), $errorDetails->comparisonFailure());
+            $this->doEvaluateIsLikeArray((array) $this->expected, (array) $actual, $assert, $errorDetails);
         } else {
             $assert->assertIs($this->expected, $actual, $errorDetails->prependMessage(), $errorDetails->comparisonFailure());
         }
