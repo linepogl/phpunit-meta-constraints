@@ -20,7 +20,7 @@ jobs:
           coverage: xdebug
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
